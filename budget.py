@@ -1,4 +1,4 @@
-
+from time import sleep
 
 budget_database = []
 
@@ -18,8 +18,7 @@ class Budget(object):
 				sleep(3)
 				self.balance -= amt
 				print('Take your cash!')
-				print('Thanks for banking with us!')
-				print("Your new account balance is =N= {}".format(self.balance))
+				print("New category balance is =N= {}".format(self.balance))
 		else:
 			print('Insufficient fund')
 
@@ -49,7 +48,7 @@ class Budget(object):
 			sleep(3)
 			self.balance+=amt
 			print("Succesfull!")
-			print("Your new account balance is =N={}".format(self.balance))
+			print("New category balance is =N={}".format(self.balance))
 
 
 
@@ -77,7 +76,7 @@ def verify_budget(database, category):
 def update_budget(mod_category):
 	for i, u in enumerate(budget_database):
 		if mod_category.category == u.category:
-			del database[i]
+			del budget_database[i]
 			break
 
 	budget_database.insert(i, mod_category)
@@ -97,10 +96,10 @@ def process_budget(category):
 			update_budget(category)
 			play = input("Do you want to perform another operation on budget {}? (y/n)\n".format(category.category))
 		elif option == 2:
-			amt = input_integer('Enter amount to transfer \n =N= ', 'Invalid amount entered')
-			cat = input('Enter category:\n')
+			cat = input('Enter category you want to transfer to:\n')
 			cat = verify_budget(budget_database, cat)
 			if cat is not None:
+				amt = input_integer('Enter amount to transfer \n =N= ', 'Invalid amount entered')
 				cat = category.transfer(cat, amt)
 				update_budget(category)
 				update_budget(cat)
@@ -126,6 +125,7 @@ def create_budget(budget_cat):
 
 	budget = Budget(category=budget_cat, balance=balance)
 	budget_database.append(budget)
+	print('\n Budget {} created succesfully!\n'.format(budget_cat))
 
 
 
@@ -151,6 +151,7 @@ while play == 'y':
 
 		if category is None:
 			create_budget(budget)
+			play = input("Do you want to perform another operation on another budget? (y/n)\n")
 		else:
 			print('Category selected already exist!')
 			play = input("Do you want to perform another operation on another budget? (y/n)\n")
@@ -161,6 +162,7 @@ while play == 'y':
 
 		if category is not None:
 			process_budget(category)
+			play = input("Do you want to perform another operation on another budget? (y/n)\n")
 		else:
 			print('Invalid category selected!')
 			play = input("Do you want to perform another operation on another budget? (y/n)\n")
