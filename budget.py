@@ -52,9 +52,6 @@ class Budget(object):
 
 
 
-
-
-
 def input_integer(info, err_msg):
 	try:
 		integer = int(input(info))
