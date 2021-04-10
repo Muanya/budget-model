@@ -126,6 +126,9 @@ def create_budget(budget_cat):
 
 
 
+# ============== Testing ======================================
+
+# add some budgets into the database
 budget_database.append(Budget(category='food', balance=10000))
 budget_database.append(Budget(category='drinks', balance=20000))
 budget_database.append(Budget(category='cloths', balance=50000))
