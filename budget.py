@@ -166,13 +166,22 @@ def main():
 		else:
 			print('Invalid option selected!')
 			play = input("Do you want to perform another operation on another budget? (y/n)\n")
+
+
+
 		
 # ============== Testing ======================================
 
-# add some budgets into the database
-budget_database.append(Budget(category='food', balance=10000))
-budget_database.append(Budget(category='drinks', balance=20000))
-budget_database.append(Budget(category='cloths', balance=50000))
+if __name__ == '__main__':
+
+	# add some budgets into the database
+	budget_database.append(Budget(category='food', balance=10000))
+	budget_database.append(Budget(category='drinks', balance=20000))
+	budget_database.append(Budget(category='cloths', balance=50000))
+
+	main()
+
+
 
 
 
