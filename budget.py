@@ -1,6 +1,6 @@
 from time import sleep
 
-budget_database = []
+budget_database = [] # an array for storing all budject objects
 
 
 class Budget(object):
@@ -50,6 +50,9 @@ class Budget(object):
 			print("Succesfull!")
 			print("New category balance is =N={}".format(self.balance))
 
+	def get_balance(self):
+		print('\n The balance for {} category is =N= {}'.format(self.category, self.balance))
+
 
 
 def input_integer(info, err_msg):
@@ -83,7 +86,7 @@ def process_budget(category):
 	while play=='y':
 		print('\n Budget : {} \t\t Balance: {} \n'.format(category.category, category.balance))
 		print('1. Withdraw \t\t 3.Deposit \n')
-		print('2. Transfer  \n')
+		print('2. Transfer \t\t 4.See Balance \n')
 
 		option = input_integer('Select an option: ', '\n Invalid input! \n')
 
@@ -108,7 +111,9 @@ def process_budget(category):
 			category.deposit(amt)
 			update_budget(category)
 			play = input("Do you want to perform another operation on budget {}? (y/n)\n".format(category.category))
-
+		elif option == 4:
+			category.get_balance()
+			play = input("Do you want to perform another operation on budget {}? (y/n)\n".format(category.category))
 		else:
 			print("Invalid option!\n")
 			play = 'y'
@@ -125,7 +130,43 @@ def create_budget(budget_cat):
 	print('\n Budget {} created succesfully!\n'.format(budget_cat))
 
 
+def main():
+	play = 'y'
 
+	while play == 'y':
+
+		print('Welcome to Zuri Budget handler\n')
+
+		print('1. Create a budget \t\t 2.Select a budget \n')
+
+		option = input_integer('Select an option: ', '\n Invalid input! \n')
+
+		if option == 1:
+			budget = input('Enter category of budget:\n')
+			category = verify_budget(budget_database, budget)
+
+			if category is None:
+				create_budget(budget)
+				play = input("Do you want to perform another operation on another budget? (y/n)\n")
+			else:
+				print('Category selected already exist!')
+				play = input("Do you want to perform another operation on another budget? (y/n)\n")
+			
+		elif option == 2:
+			budget = input('Enter category of budget:\n')
+			category = verify_budget(budget_database, budget)
+
+			if category is not None:
+				process_budget(category)
+				play = input("Do you want to perform another operation on another budget? (y/n)\n")
+			else:
+				print('Invalid category selected!')
+				play = input("Do you want to perform another operation on another budget? (y/n)\n")
+
+		else:
+			print('Invalid option selected!')
+			play = input("Do you want to perform another operation on another budget? (y/n)\n")
+		
 # ============== Testing ======================================
 
 # add some budgets into the database
@@ -135,41 +176,6 @@ budget_database.append(Budget(category='cloths', balance=50000))
 
 
 
-play = 'y'
 
-while play == 'y':
-
-	print('Welcome to Zuri Budget handler\n')
-
-	print('1. Create a budget \t\t 2.Select a budget \n')
-
-	option = input_integer('Select an option: ', '\n Invalid input! \n')
-
-	if option == 1:
-		budget = input('Enter category of budget:\n')
-		category = verify_budget(budget_database, budget)
-
-		if category is None:
-			create_budget(budget)
-			play = input("Do you want to perform another operation on another budget? (y/n)\n")
-		else:
-			print('Category selected already exist!')
-			play = input("Do you want to perform another operation on another budget? (y/n)\n")
-		
-	elif option == 2:
-		budget = input('Enter category of budget:\n')
-		category = verify_budget(budget_database, budget)
-
-		if category is not None:
-			process_budget(category)
-			play = input("Do you want to perform another operation on another budget? (y/n)\n")
-		else:
-			print('Invalid category selected!')
-			play = input("Do you want to perform another operation on another budget? (y/n)\n")
-
-	else:
-		print('Invalid option selected!')
-		play = input("Do you want to perform another operation on another budget? (y/n)\n")
-	
 	
 
